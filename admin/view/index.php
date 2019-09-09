@@ -7,7 +7,7 @@
             <tbody><tr>
                 <th scope="row"><label for="box_title">Box Title</label></th>
                 <td>
-                    <input name="box_title" type="text" id="box_title"
+                    <input name="box_title" type="text" id="box_title" maxlength="20"
                            value="<?php echo get_option('compute_links_box_title') ?>" class="regular-text">
                 </td>
             </tr>

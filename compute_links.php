@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Compute Links
-Plugin URI: http://naderfar.com
+Plugin URI: https://github.com/ndr053/compute-links-plugin-wordpress
 Description: This plugin compute size of direct links in the content. It calculate you size links and display in your content.
 Author: Hamed Naderfar
 Version: 1.0.0
@@ -26,7 +26,10 @@ function compute_link_admin_settings()
     $page = new Compute_Submenu_Page();
     $plugin = new Compute_Submenu($page);
     $plugin->init();
-    $page->save();
+    if (current_user_can('administrator')) {
+        $page->save();
+    }
+
 }
 
 add_shortcode('compute_links', 'computeLinks');
@@ -41,6 +44,7 @@ function computeLinks($atts, $links)
     $sum = 0;
     $resultLinks = array();
     foreach ($urls as $url) {
+        $url = esc_url($url);
         $urlSize = getRemoteFileSize($url);
         $resultLinks[$url] = $urlSize;
         $sum += isset($urlSize) ? $urlSize : 0;

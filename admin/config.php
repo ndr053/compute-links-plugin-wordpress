@@ -10,19 +10,21 @@ class Compute_Submenu_Page {
 
     public function save()
     {
-        $params = $_POST;
-        if ($params['submit']) {
+        $boxTitle = sanitize_text_field($_POST['box_title']);
+        $boxColor = sanitize_text_field($_POST['box_color']);
+        $isShortLink = sanitize_text_field($_POST['is_short_link']);
+        if ($_POST['submit']) {
 
-            if (isset($params['box_title']) && strlen($params['box_title']) < 20) {
-                update_option( 'compute_links_box_title', $params['box_title']);
+            if ($boxTitle) {
+                update_option( 'compute_links_box_title', $boxTitle);
             }
 
-            if (isset($params['box_color']) && in_array($params['box_color'], self::BOX_COLORS)) {
-                update_option( 'compute_links_box_color', $params['box_color']);
+            if ($boxColor && in_array($boxColor, self::BOX_COLORS)) {
+                update_option( 'compute_links_box_color', $boxColor);
             }
 
-            if (isset($params['is_short_link'])) {
-                update_option( 'compute_links_is_short_link', $params['is_short_link']);
+            if ($isShortLink) {
+                update_option( 'compute_links_is_short_link', $isShortLink);
             }
         }
     }
