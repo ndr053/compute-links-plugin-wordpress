@@ -4,7 +4,11 @@
     <form method="post" action="" novalidate="novalidate">
         <table class="form-table">
 
-            <tbody><tr>
+            <tbody>
+
+            <?php wp_nonce_field( 'compute_links_setting_form', 'compute_links_setting_token' ); ?>
+
+            <tr>
                 <th scope="row"><label for="box_title">Box Title</label></th>
                 <td>
                     <input name="box_title" type="text" id="box_title" maxlength="20"

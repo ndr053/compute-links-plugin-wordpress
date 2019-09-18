@@ -1,6 +1,6 @@
 <?php
 
-class Compute_Submenu {
+class Clp_Compute_Submenu {
 
     private $submenu_page;
 
