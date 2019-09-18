@@ -1,6 +1,6 @@
 <?php
 
-class Compute_Submenu_Page {
+class Clp_Compute_Submenu_Page {
     const BOX_COLORS = array('gray', 'red', 'blue', 'green', 'yellow');
 
     public function render()

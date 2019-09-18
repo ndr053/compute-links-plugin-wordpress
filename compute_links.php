@@ -19,12 +19,12 @@ foreach ( glob( plugin_dir_path( __FILE__ ) . 'admin/*.php' ) as $file )
     include_once $file;
 }
 
-add_action( 'plugins_loaded', 'compute_link_admin_settings' );
+add_action( 'plugins_loaded', 'clp_admin_settings' );
 
-function compute_link_admin_settings()
+function clp_admin_settings()
 {
-    $page = new Compute_Submenu_Page();
-    $plugin = new Compute_Submenu($page);
+    $page = new Clp_Compute_Submenu_Page();
+    $plugin = new Clp_Compute_Submenu($page);
     $plugin->init();
     if (current_user_can('administrator')) {
         $page->save();
@@ -32,9 +32,9 @@ function compute_link_admin_settings()
 
 }
 
-add_shortcode('compute_links', 'computeLinks');
+add_shortcode('compute_links', 'clp_computeLinks');
 
-function computeLinks($atts, $links)
+function clp_computeLinks($atts, $links)
 {
     wp_enqueue_style ('theme-style', plugin_dir_url( __FILE__ ) .'assets/css/style.css');
 
@@ -45,7 +45,7 @@ function computeLinks($atts, $links)
     $resultLinks = array();
     foreach ($urls as $url) {
         $url = esc_url($url);
-        $urlSize = getRemoteFileSize($url);
+        $urlSize = clp_getRemoteFileSize($url);
         $resultLinks[$url] = $urlSize;
         $sum += isset($urlSize) ? $urlSize : 0;
     }
@@ -55,14 +55,14 @@ function computeLinks($atts, $links)
     $colorBox = get_option('compute_links_box_color');
     $result = '';
     if (count($resultLinks) > 0) {
-        $result .= "<div id='compute-links-box' class='".$colorBox."'>";
-        $result .= "<div id='compute-title' class='".$colorBox."'>".($titleBox?:'Download Links')." :: ".formatBytes($sum)."</div>";
+        $result .= "<div id='compute-links-box' class='".($colorBox?:'blue')."'>";
+        $result .= "<div id='compute-title' class='".($colorBox?:'blue')."'>".($titleBox?:'Download Links')." :: ".clp_formatBytes($sum)."</div>";
         foreach ($resultLinks as $link => $size) {
             $result .= '<div class="compute-link">
                             <span class="file-link">
                                 <a href="'.$link.'">'.($isShortLink == 0?$link:substr($link, 0, 60).'...').'</a>
                             </span>
-                            <span class="size-link">'.formatBytes($size)."</span>
+                            <span class="size-link">'.clp_formatBytes($size)."</span>
                         </div>";
         }
         $result .= "</div>";
@@ -71,13 +71,13 @@ function computeLinks($atts, $links)
     return $result;
 }
 
-function getRemoteFileSize($url)
+function clp_getRemoteFileSize($url)
 {
     $head = array_change_key_case(get_headers($url, 1));
     return $head['content-length'];
 }
 
-function formatBytes($clen)
+function clp_formatBytes($clen)
 {
     $size = $clen;
     switch ($clen) {
