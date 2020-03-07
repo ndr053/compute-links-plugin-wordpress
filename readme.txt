@@ -2,8 +2,8 @@
 Contributors: ndr053
 Tags: compute links, total size links, display link size
 Requires at least: 5.0
-Tested up to: 5.2
-Stable tag: 1.0
+Tested up to: 5.3
+Stable tag: 1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -12,8 +12,8 @@ View and the total size of the links in the post.
 
 == Description ==
 
-Compute links plugin is a view of the total size of the links in the post. This means you put the links in the short code and compute all links.
-Also, This plugin display size of the each link.
+Compute links plugin is a view of the total size of the links in the post. This means you put the links in the shortcode and compute all links.
+Also, This plugin display the size of each link.
 
 Boost your content by using Compute Links' many shortcuts features:
 * Easy to use with shortcode
@@ -35,7 +35,15 @@ This section describes how to install the plugin and get it working.
 
 == Screenshots ==
 
-/assets/screenshot-1.png
-/assets/screenshot-2.png
-/assets/screenshot-3.png
+1. Download links box
+2. Download links box
+3. Admin panel
 
+
+== Changelog ==
+
+= 1.1.0 =
+
+* Add table for store links and cache it.
+* Add the solution to better install the plugin
+* Improve code for update the plugin
