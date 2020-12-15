@@ -19,11 +19,19 @@ foreach ( glob( plugin_dir_path( __FILE__ ) . 'admin/*.php' ) as $file )
     include_once $file;
 }
 
-foreach ( glob( plugin_dir_path( __FILE__ ) . 'model/*.php' ) as $file )
+foreach ( glob( plugin_dir_path( __FILE__ ) . 'models/*.php' ) as $file )
 {
 	include_once $file;
 }
 
+foreach ( glob( plugin_dir_path( __FILE__ ) . 'controllers/*.php' ) as $file )
+{
+    include_once $file;
+}
+
+
+$postModel = new Clp_Post();
+$postModel->removeAllUrlsByPostId();
 add_action( 'plugins_loaded', 'clp_admin_settings' );
 add_shortcode('compute_links', 'clp_computeLinks');
 
@@ -41,6 +49,8 @@ function clp_admin_settings()
 function clp_computeLinks($atts, $links)
 {
 	$computeLinkModel = new Clp_Link();
+	$convertorModel = new Clp_Convertor();
+	$postModel = new Clp_Post();
     wp_enqueue_style ('theme-style', plugin_dir_url( __FILE__ ) .'assets/css/style.css');
 
     preg_match_all('/(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/is', $links, $matches);
@@ -50,7 +60,7 @@ function clp_computeLinks($atts, $links)
     foreach ($urls as $key=>$url) {
 	    $urls[$key] = $computeLinkModel->getUrlByPostIdAndUrl($url);
 
-	    if (is_null($urls[$key])) {
+	    if (is_null($urls[$key]) && $postModel->isPublish()) {
 	    	$urlId = $computeLinkModel->saveUrl($url);
 		    $urls[$key] = $computeLinkModel->getUrlById($urlId);
 	    }
@@ -63,14 +73,14 @@ function clp_computeLinks($atts, $links)
     $result = '';
     if (count($urls) > 0) {
         $result .= "<div id='compute-links-box' class='".($colorBox?:'blue')."'>";
-        $result .= "<div id='compute-title' class='".($colorBox?:'blue')."'>".($titleBox?:'Download Links')." :: ".clp_formatBytes($sum)."</div>";
+        $result .= "<div id='compute-title' class='".($colorBox?:'blue')."'>".($titleBox?:'Download Links')." :: ".$convertorModel->formatBytes($sum)."</div>";
         foreach ($urls as $url) {
         	if (isset($url)) {
 		        $result .= '<div class="compute-link">
                             <span class="file-link">
                                 <a href="'.$url->url.'">'.($isShortLink == 0?$url->url:substr($url->url, 0, 60).'...').'</a>
                             </span>
-                            <span class="size-link">'.clp_formatBytes($url->size)."</span>
+                            <span class="size-link">'.$convertorModel->formatBytes($url->size?:0)."</span>
                         </div>";
 	        }
         }
@@ -80,22 +90,3 @@ function clp_computeLinks($atts, $links)
     return $result;
 }
 
-function clp_formatBytes($clen)
-{
-    $size = $clen;
-    switch ($clen) {
-        case $clen < 1024                :
-            $size = $clen . ' B';
-            break;
-        case $clen < 1048576            :
-            $size = round($clen / 1024, 2) . ' KB';
-            break;
-        case $clen < 1073741824            :
-            $size = round($clen / 1048576, 2) . ' MB';
-            break;
-        case $clen < 1099511627776        :
-            $size = round($clen / 1073741824, 2) . ' GB';
-            break;
-    }
-    return $size;
-}

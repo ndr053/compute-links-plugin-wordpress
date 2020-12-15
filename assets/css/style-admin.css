@@ -1,0 +1,10 @@
+#clp_content h2.nav-tab-wrapper {
+    margin-bottom: 10px !important;
+}
+
+#clp_content .pagination-links .current .button {
+    color: #a0a5aa;
+    border-color: #ddd;
+    background: #fff;
+    cursor: context-menu;
+}
