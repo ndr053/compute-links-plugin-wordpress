@@ -2,8 +2,8 @@
 Contributors: ndr053
 Tags: compute links, total size links, display link size
 Requires at least: 5.0
-Tested up to: 5.3
-Stable tag: 1.1
+Tested up to: 5.6
+Stable tag: 1.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,6 +41,12 @@ This section describes how to install the plugin and get it working.
 
 
 == Changelog ==
+
+= 1.2.0 =
+
+* Show the list of links in the panel. Now you can see the specifications of the links, post title, size, date and author.
+* Fixed a bug that was saving URLs in the database.
+* Fixed a bug when displaying the download box in Twenty Twenty-One theme.
 
 = 1.1.0 =
 
