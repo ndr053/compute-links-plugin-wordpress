@@ -10,11 +10,15 @@ class Clp_Compute_Submenu_Page {
 
     public function save()
     {
-        $boxTitle = sanitize_text_field($_POST['box_title']);
-        $boxColor = sanitize_text_field($_POST['box_color']);
-        $isShortLink = sanitize_text_field($_POST['is_short_link']);
-        $nonce = sanitize_text_field($_POST['compute_links_setting_token']);
-        if ($_POST['submit'] && wp_verify_nonce($nonce, 'compute_links_setting_form')) {
+        $nonce = isset($_POST['compute_links_setting_token']) ?
+            sanitize_text_field($_POST['compute_links_setting_token']) :
+            null;
+
+        if (isset($_POST['submit']) && wp_verify_nonce($nonce, 'compute_links_setting_form')) {
+
+            $boxTitle = sanitize_text_field($_POST['box_title']);
+            $boxColor = sanitize_text_field($_POST['box_color']);
+            $isShortLink = sanitize_text_field($_POST['is_short_link']);
 
             if ($boxTitle) {
                 update_option( 'compute_links_box_title', $boxTitle);
