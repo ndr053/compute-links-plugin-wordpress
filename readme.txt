@@ -2,8 +2,8 @@
 Contributors: ndr053
 Tags: compute links, total size links, display link size
 Requires at least: 5.0
-Tested up to: 5.6
-Stable tag: 1.2
+Tested up to: 6.0
+Stable tag: 1.2.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,6 +21,8 @@ Boost your content by using Compute Links' many shortcuts features:
 * Display total size of the links
 * Change them box links
 * Change title box links
+
+**There's a [GIT repository](https://github.com/ndr053/compute-links-plugin-wordpress "Github Inactive Repository") too if you want to contribute a patch.**
 
 
 == Installation ==
@@ -41,6 +43,10 @@ This section describes how to install the plugin and get it working.
 
 
 == Changelog ==
+
+= 1.2.1 =
+
+* Solving the Notice before sending the form in the admin panel.
 
 = 1.2.0 =
 

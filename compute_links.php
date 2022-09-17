@@ -5,8 +5,8 @@ Plugin Name: Compute Links
 Plugin URI: https://github.com/ndr053/compute-links-plugin-wordpress
 Description: This plugin compute size of direct links in the content. It calculate you size links and display in your content.
 Author: Hamed Naderfar
-Version: 1.1.0
-Author URI: http://naderfar.com
+Version: 1.2.1
+Author URI: https://naderfar.com
 */
 
 if ( ! defined( 'WPINC' ) )
